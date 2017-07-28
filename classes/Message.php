@@ -19,7 +19,7 @@ class Message {
     function __construct($author, $content) {
         $this->author = $author;
         $this->content = $content;
-        $this->date = new DateTime();
+        $this->date = date("Y-m-d H:i:s");
     }
 
     function getAuthor() {

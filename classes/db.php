@@ -11,23 +11,34 @@
  *
  * @author seb
  */
-include_once '../classes/Message.php';
+include_once 'Message.php';
 class db {
 
     private $dbh;
 
     function __construct() {
-        $this->dbh = new PDO('mysql:host=localhost;dbname=ajax_chat', 'php', 'toor');
-        //$this->dbh->setAttr$this->dbh = new PDO('mysql:host=localhost;dbname=knoibute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->dbh = new PDO('mysql:host=localhost;dbname=ajax_chat', 'root', 'toor');
     }
     
     function addmessage(Message $message){
-        $query = $this->dbh->prepare("INSERT INTO messages (author, date, content) " .
-                "VALUES (:author, :date, :content);");
+        $query = $this->dbh->prepare("INSERT INTO messages (author, content, postdate) " .
+                "VALUES (:author, :content, :postdate)");
         $query->bindValue(':author', $message->getAuthor());
-        $query->bindValue(':date', $message);
-        $query->bindValue(':content', $user->getEmail());
+        $query->bindValue(':content', $message->getContent());
+        $query->bindValue(':postdate', $message->getDate());
         $query->execute();
+//        $this->dbh->exec("INSERT INTO messages (author) VALUES ('aaa')");
         return TRUE;
+    }
+    function readmessages(){
+        $array = [];
+        $query = $this->dbh->prepare("SELECT * FROM messages");
+        $query->execute();
+        while($row = $query->fetch()){
+            $array[$row["id"]] ["author"] = $row["author"];
+            $array[$row["id"]] ["content"] = $row["content"];
+            $array[$row["id"]] ["postdate"] = $row["postdate"];
+        }
+        return $array;
     }
 }

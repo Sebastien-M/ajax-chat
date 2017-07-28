@@ -18,17 +18,16 @@ and open the template in the editor.
     </head>
     <body class="container-fluid">
         <?php
-        $date = new DateTime();
-        echo $date->format('Y-m-d H:i:s');
+        echo date("Y-m-d H:i:s");
+        echo "<p>".$_SESSION['pseudo']."</p>";
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $_SESSION['pseudo'] = $post['pseudo'];
-        echo $_SESSION['pseudo'];
         ?>
         <section style="height:50vh;background-color:gray;overflow-y: scroll;word-wrap: break-word;" class="col-md-6 col-md-offset-4" id="chat">
             
         </section>
         <section id="chatinput">
-            <form action="createmessage.php" method="POST">
+            <form action="messages_handler/createmessage.php" method="POST">
                 <input id="message" type="text" name="message" placeholder="message">
                 <input id="send" type="submit" value="send message">
             </form>
