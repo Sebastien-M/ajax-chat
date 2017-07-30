@@ -19,12 +19,12 @@ and open the template in the editor.
     <body class="container-fluid">
         <?php
         echo date("Y-m-d H:i:s");
-        echo "<p>".$_SESSION['pseudo']."</p>";
+        echo "<p>" . $_SESSION['pseudo'] . "</p>";
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $_SESSION['pseudo'] = $post['pseudo'];
         ?>
         <section style="height:50vh;background-color:gray;overflow-y: scroll;word-wrap: break-word;" class="col-md-6 col-md-offset-4" id="chat">
-            
+
         </section>
         <section id="chatinput">
             <form action="messages_handler/createmessage.php" method="POST">
@@ -33,5 +33,9 @@ and open the template in the editor.
             </form>
         </section>
         <script src="js/ajax.js"></script>
+        <script
+            src="http://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
     </body>
 </html>

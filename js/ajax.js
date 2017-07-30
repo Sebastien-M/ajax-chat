@@ -35,6 +35,7 @@ function messageupdate() {
                     let messages = JSON.parse(this.responseText);
                     for (let message in messages){
                         let p = document.createElement('p');
+                        p.className = "message";
                         p.textContent = messages[message].author + " : " + messages[message].content;
                         document.querySelector('#chat').appendChild(p);
                     }
