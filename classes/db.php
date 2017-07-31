@@ -17,7 +17,7 @@ class db {
     private $dbh;
 
     function __construct() {
-        $this->dbh = new PDO('mysql:host=localhost;dbname=ajax_chat', 'root', 'toor');
+        $this->dbh = new PDO('mysql:host=localhost;dbname=ajax_chat', 'root', 'rga42fm1');
     }
     
     function addmessage(Message $message){
@@ -30,7 +30,7 @@ class db {
 //        $this->dbh->exec("INSERT INTO messages (author) VALUES ('aaa')");
         return TRUE;
     }
-    function readmessages(){
+    function readmessages():array{
         $array = [];
         $query = $this->dbh->prepare("SELECT * FROM messages");
         $query->execute();
@@ -38,7 +38,27 @@ class db {
             $array[$row["id"]] ["author"] = $row["author"];
             $array[$row["id"]] ["content"] = $row["content"];
             $array[$row["id"]] ["postdate"] = $row["postdate"];
+            $array[$row["id"]] ["id"] = $row["id"];
         }
         return $array;
+    }
+    
+    function messageupdate($lastid):array{
+        $array = [];
+        $query = $this->dbh->prepare("SELECT * FROM messages WHERE id > :id ORDER BY id ASC");
+        $query->bindValue(':id', $lastid);
+        while($row = $query->fetch()){
+            $array[$row["id"]] ["author"] = $row["author"];
+            $array[$row["id"]] ["content"] = $row["content"];
+            $array[$row["id"]] ["postdate"] = $row["postdate"];
+            $array[$row["id"]] ["id"] = $row["id"];
+        }
+        return $array;
+    }
+    
+    function maxid(){
+        $query = $this->dbh->prepare("SELECT MAX(id) FROM messages");
+        $query->execute();
+        return $query->fetch();
     }
 }
