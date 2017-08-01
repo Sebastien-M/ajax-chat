@@ -16,22 +16,28 @@ and open the template in the editor.
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <title>Chat</title>
     </head>
-    <body class="container-fluid">
+    <body>
         <?php
-        echo date("Y-m-d H:i:s");
-        echo "<p>" . $_SESSION['pseudo'] . "</p>";
+        require_once './parts/header.php';
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $_SESSION['pseudo'] = $post['pseudo'];
-        ?>
-        <section style="height:50vh;background-color:gray;overflow-y: scroll;word-wrap: break-word;" class="col-md-6 col-md-offset-4" id="chat">
+        if (!isset($post['pseudo']) || empty($post['pseudo'])) {
+            echo "Vous devez être connecté";
+        } else if (isset($post['pseudo'])) {
+            $_SESSION['pseudo'] = $post['pseudo'];
+            echo $_SESSION['pseudo'];
+            ?>
+            <section style="height:50vh;background-color:gray;overflow-y: scroll;word-wrap: break-word;" class="col-md-6 col-md-offset-4" id="chat">
 
-        </section>
-        <section id="chatinput">
-            <form action="messages_handler/createmessage.php" method="POST">
-                <input id="message" type="text" name="message" placeholder="message">
-                <input id="send" type="submit" value="send message">
-            </form>
-        </section>
+            </section>
+            <section id="chatinput">
+                <form action="messages_handler/createmessage.php" method="POST">
+                    <input id="message" type="text" name="message" placeholder="message">
+                    <input id="send" type="submit" value="send message">
+                </form>
+            </section>
+    <?php
+}
+?>
         <script src="js/ajax.js"></script>
         <script
             src="http://code.jquery.com/jquery-3.2.1.min.js"

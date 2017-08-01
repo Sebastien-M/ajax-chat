@@ -20,6 +20,7 @@ document.querySelector("#send").addEventListener("click", function (e) {
             }
         }
     };
+    document.querySelector("#message").value = "";
 });
 
 
@@ -31,6 +32,7 @@ xhr.send();
 xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
+            
             let messages = JSON.parse(this.responseText);
             for (let message in messages) {
                 let p = document.createElement('p');
@@ -43,7 +45,6 @@ xhr.onreadystatechange = function () {
                 objectemp.push(objectnb[keys]);
             }
             maxid = Math.max.apply(null, objectemp);
-
         }
     }
 };
@@ -75,8 +76,8 @@ function update() {
         }
     };
     xhr.send("id=" + maxid);
-
 }
+
 setInterval(function () {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', 'messages_handler/messagecheck.php', true);
@@ -91,6 +92,5 @@ setInterval(function () {
             }
         }
     };
-
     xhr.send();
 }, 500);

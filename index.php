@@ -17,7 +17,9 @@ and open the template in the editor.
         <title>Chat</title>
     </head>
     <body>
-
+        <?php
+        require_once './parts/header.php';
+        ?>
         <form method="POST" action="chat.php">
             <label for="pseudo">Pseudo</label>
             <input name="pseudo" id="pseudo" type="text">
