@@ -18,7 +18,7 @@ class db {
     private $dbh;
 
     function __construct() {
-        $this->dbh = new PDO('mysql:host=localhost;dbname=ajax_chat', 'php', 'toor');
+        $this->dbh = new PDO('mysql:host=localhost;dbname=ajax_chat', 'root', 'toor');
     }
 
     function addmessage(Message $message) {

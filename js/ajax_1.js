@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 //Displays all messages when connecting
 var objectnb = [];
@@ -50,8 +45,6 @@ xhr.onreadystatechange = function () {
 };
 
 //Updates messages every 500ms
-
-
 setInterval(function () {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', 'messages_handler/messagecheck.php', true);
