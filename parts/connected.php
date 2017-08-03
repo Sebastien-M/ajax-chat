@@ -6,4 +6,4 @@
  * and open the template in the editor.
  */
 session_start();
-$_SESSION['pseudo'] = $_POST['pseudo'];
+$_SESSION['pseudo'] = "seb";

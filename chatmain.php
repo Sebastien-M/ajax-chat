@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,13 +29,29 @@
                         </div>
                     </div>
                     <div class="inner cover">
-                        <h1 class="cover-heading">What is your pseudo?</h1>
-                        <form method="POST" action="chatmain.php">
-                            <div class="form-group formulaire">
-                                <input name="pseudo" style="text-align:center" id="pseudo" type="text" class="form-control">
-                                <input class="btn btn-lg btn-secondary"id="pseudosub"style="margin-top:20px" type="submit" value="chat">
-                            </div>
-                        </form>
+                        <h1 class="cover-heading">Tchat</h1>
+
+                        <?php
+                        $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                        if (!isset($post['pseudo']) || empty($post['pseudo'])) {
+                            echo "Vous devez être connecté";
+                        } else if (isset($post['pseudo'])) {
+                            $_SESSION['pseudo'] = $post['pseudo'];
+                            echo $_SESSION['pseudo'];
+                            ?>
+                            <section style="height:50vh;background-color:gray;overflow-y: scroll;word-wrap: break-word;" class="col-md-6 col-md-offset-4" id="chat">
+
+                            </section>
+                            <section id="chatinput">
+                                <form action="messages_handler/createmessage.php" method="POST">
+                                    <input id="message" type="text" name="message" placeholder="message">
+                                    <input id="send" type="submit" value="send message">
+                                </form>
+                            </section>
+                            <?php
+                        }
+                        ?>
+                        
                     </div>
                     <div class="mastfoot">
                         <p class="lead" id="pseudo_error"></p>
@@ -40,6 +59,7 @@
                 </div>
             </div>
         </div>
+        <script src="js/ajax.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
