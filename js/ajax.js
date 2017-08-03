@@ -86,6 +86,9 @@ function update() {
                     objectemp = [];
                     maxid;
                     objectnb.push(newmessages[message].id);
+                    //scroll
+                    let chat = document.querySelector("#chat");
+                    chat.scrollTop = chat.scrollHeight;
                 }
                 for (let keys in objectnb) {
                     objectemp.push(objectnb[keys]);
